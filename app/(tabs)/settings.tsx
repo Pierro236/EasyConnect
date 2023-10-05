@@ -4,7 +4,7 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 const testimage = require("../../assets/images/easy.png");
 
-export default function TabOneScreen() {
+export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <Image style={{ height: "30%", width: "50%" }} source={testimage}></Image>

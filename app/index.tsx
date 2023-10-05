@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "expo-router";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import BenefitItem from "../components/BenefitItem";
+import CustomButton from "../components/CustomButton";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const logo = require("../assets/images/easy.png");
 
@@ -45,12 +47,22 @@ export default function Home() {
         ))}
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.buttonStyle}>
-          <Text style={styles.buttonText}>Créer un compte</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonStyle}>
-          <Text style={styles.buttonText}>Se connecter</Text>
-        </TouchableOpacity>
+        <Link href="/(tabs)" asChild>
+          <CustomButton
+            text="Créer un compte"
+            onPress={() => {
+              // Add your logic for the button's action here
+            }}
+          />
+        </Link>
+        <Link href="/login" asChild>
+          <CustomButton
+            text="Se connecter"
+            onPress={() => {
+              // Add your logic for the button's action here
+            }}
+          />
+        </Link>
       </View>
     </SafeAreaView>
   );
@@ -72,12 +84,13 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontWeight: "bold",
-    fontSize: 28,
+    fontSize: 25,
     paddingTop: 10,
   },
   subText: {
-    fontSize: 15,
+    fontSize: 16,
     paddingTop: 17,
+    textAlign: "left",
   },
   descriptionContainer: {
     flex: 0.2,
@@ -89,21 +102,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   buttonsContainer: {
-    marginTop: 25,
+    marginTop: "20%",
     flex: 0.2,
     justifyContent: "space-between",
-  },
-  buttonStyle: {
-    backgroundColor: "#071091",
-    borderRadius: 18,
-    padding: 10,
-    alignItems: "center",
-    height: "65%",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 18,
   },
 });

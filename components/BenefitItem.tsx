@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   },
   benefitText: {
     paddingLeft: 10,
+    fontSize: 16,
   },
 });
 
