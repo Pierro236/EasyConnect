@@ -1,5 +1,5 @@
 import { Image, StyleSheet } from "react-native";
-
+import { Sidebar } from "../../components/Sidebar";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 const testimage = require("../../assets/images/easy.png");
@@ -7,7 +7,7 @@ const testimage = require("../../assets/images/easy.png");
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Image style={{ height: "30%", width: "50%" }} source={testimage}></Image>
+      <Sidebar />
       <Text style={styles.title}>Easy Connect</Text>
     </View>
   );
