@@ -16,7 +16,7 @@ const benefits = [
   },
   {
     id: 2,
-    title: "Partager des expériences",
+    title: " Partager des expériences",
     icon: <FontAwesome name="picture-o" size={24} color="black" />,
   },
   {
@@ -31,12 +31,12 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image style={styles.logoImage} source={logo} />
+      </View>
+      <View style={styles.descriptionContainer}>
         <Text style={styles.logoText}>Bienvenue sur Easy Connect</Text>
         <Text style={styles.subText}>
           L'application qui te connecte facilement avec tes amis
         </Text>
-      </View>
-      <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionTitle}>Easy Connect te permet de :</Text>
         {benefits.map((benefit) => (
           <BenefitItem
@@ -73,9 +73,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "white",
+    justifyContent: "space-between",
   },
   logoContainer: {
-    flex: 0.5,
+    flex: 0.3,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -86,15 +87,15 @@ const styles = StyleSheet.create({
   logoText: {
     fontWeight: "bold",
     fontSize: 25,
-    paddingTop: 10,
   },
   subText: {
     fontSize: 16,
-    paddingTop: 17,
     textAlign: "left",
+    paddingTop: 17,
   },
   descriptionContainer: {
-    flex: 0.2,
+    flex: 0.5,
+    paddingTop: "19%",
   },
   descriptionTitle: {
     fontWeight: "bold",
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   buttonsContainer: {
-    marginTop: "20%",
     flex: 0.2,
     justifyContent: "space-between",
   },

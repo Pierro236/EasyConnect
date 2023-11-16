@@ -1,14 +1,25 @@
-import { Image, StyleSheet } from "react-native";
-
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
-const testimage = require("../../assets/images/easy.png");
+import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
+const testimage = require("../../assets/images/test.jpg");
+import ProfileIcon from "../../components/ProfileIcon";
+import Post from "../../components/PostCard";
+import { fakePostData } from "../../data/post";
 
 export default function TabOneScreen() {
+  const posts = fakePostData;
   return (
     <View style={styles.container}>
-      <Image style={{ height: "30%", width: "50%" }} source={testimage}></Image>
-      <Text style={styles.title}>Easy Connect</Text>
+      <View style={styles.addPostContainer}>
+        <ProfileIcon src={testimage} />
+        <Text style={styles.title}>Dis quelque chose...</Text>
+      </View>
+      <ScrollView
+        style={styles.postsContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -16,17 +27,24 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#dbd7d7",
   },
   title: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
+    paddingLeft: 10,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+
+  addPostContainer: {
+    flex: 0.05,
+    backgroundColor: "white",
+    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  postsContainer: {
+    flex: 0.95,
+    paddingVertical: 10,
   },
 });
