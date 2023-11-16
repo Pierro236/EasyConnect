@@ -28,7 +28,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Accueil",
+          title: "Home",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />, // Use home icon
         }}
       />
@@ -45,6 +46,14 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Settings",
+          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />, // Use settings icon
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />, // Use settings icon
         }}
       />

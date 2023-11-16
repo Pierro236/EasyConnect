@@ -1,8 +1,10 @@
+
 import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
 const testimage = require("../../assets/images/test.jpg");
 import ProfileIcon from "../../components/ProfileIcon";
 import Post from "../../components/PostCard";
 import { fakePostData } from "../../data/post";
+
 
 export default function TabOneScreen() {
   const posts = fakePostData;
