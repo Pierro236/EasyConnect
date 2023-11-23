@@ -78,7 +78,8 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={[styles.message, item.sender_id === userId ? styles.received : styles.sent]}>
-            <Text>{item.body}</Text>
+            {/* <Text>{item.body}</Text> */}
+            <Text style={styles.messageText}>{item.body}</Text>
           </View>
         )}
       />
@@ -128,6 +129,9 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       margin: 10,
       maxWidth: '75%',
+    },
+    messageText: {
+      fontSize: 20, // 增加这个值以增大字体大小
     },
     received: {
       backgroundColor: '#ebebeb',
