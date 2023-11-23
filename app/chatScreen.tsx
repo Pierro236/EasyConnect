@@ -67,7 +67,8 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {/* <Button title="Back" onPress={onBack} /> 添加一个返回按钮 */}
+        <Button title="Back" onPress={onBack} /> 
+        {/* 添加一个返回按钮 */}
         <Image source={{ uri: currentUser.profile_picture }} style={styles.avatar} />
         <Text style={styles.username}>{currentUser.username}</Text>
       </View>
