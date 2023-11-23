@@ -13,21 +13,24 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
   const [messages, setMessages] = useState<Array<any>>([]);
   const [newMessage, setNewMessage] = useState('');
 
+  const fetchMessages = async () => {
+    const loggedInUserId = 1; // 假设已登录用户ID为1
+    let { data: messagesData, error } = await supabase
+      .from('messages')
+      .select('*')
+      .or(`sender_id.eq.${loggedInUserId},receiver_id.eq.${loggedInUserId}`)
+      .or(`sender_id.eq.${userId},receiver_id.eq.${userId}`)
+      .order('created_at', { ascending: true });
+      
+    if (error) {
+      console.error(error);
+      return;
+    }
+    setMessages(messagesData ?? []);
+  };
+
   useEffect(() => {
-    const fetchMessages = async () => {
-      const loggedInUserId = 1; // 假设已登录用户ID为1
-      // 获取与特定用户的聊天记录
-      let { data: messagesData, error } = await supabase
-        .from('messages')
-        .select('*')
-        .or(`sender_id.eq.${loggedInUserId},receiver_id.eq.${loggedInUserId}`)
-        .order('created_at', { ascending: true });
-      if (error) {
-        console.error(error);
-        return;
-      }
-      setMessages(messagesData ?? []);
-    };
+    fetchMessages();
 
     const fetchCurrentUser = async () => {
       let { data: userData, error } = await supabase
@@ -42,7 +45,6 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
       setCurrentUser(userData);
     };
 
-    fetchMessages();
     fetchCurrentUser();
   }, [userId]);
 
@@ -56,10 +58,9 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
   
     if (error) {
       console.error(error);
-    } else if (data && data!==null) {
-      // 只有当data存在且不为空时，才尝试更新消息列表
-      setMessages([...messages, data[0]]);
+    } else {
       setNewMessage('');
+      fetchMessages(); // 发送消息后重新获取消息列表
     }
   };
 
@@ -72,6 +73,7 @@ const ChatScreen = ({ userId , onBack}: { userId: number; onBack: () => void }) 
       </View>
       <FlatList
         data={messages}
+        extraData={messages}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={[styles.message, item.sender_id === userId ? styles.received : styles.sent]}>
