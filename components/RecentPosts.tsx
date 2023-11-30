@@ -4,9 +4,15 @@ import PostCard from "./PostCard";
 import { fakePostData } from "../data/post";
 import Post from "./PostCard";
 import { useEffect, useState } from "react";
+import { IPost } from "../types/index";
+import CustomButton from "./CustomButton";
 
-export default function RecentPosts() {
-  const posts = fakePostData;
+export interface RecentPostsProps {
+  posts: IPost[];
+}
+
+
+export default function RecentPosts({ posts }: RecentPostsProps) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   useEffect(() => {
     const checkScreenSize = () => {
@@ -34,14 +40,14 @@ export default function RecentPosts() {
         showsHorizontalScrollIndicator={!isSmallScreen}
         horizontal={!isSmallScreen}
       >
-        {posts.map((post) => (
+        { posts && (posts.map((post) => (
           <View
             key={post.id}
             style={[styles.post, isSmallScreen && styles.smallScreenPost]}
           >
             <PostCard post={post} />
           </View>
-        ))}
+        )))}
       </ScrollView>
     </View>
   );
