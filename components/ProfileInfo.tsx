@@ -5,11 +5,15 @@ import StatsCard from "./StatsCard";
 import CustomButton from "./CustomButton";
 
 interface ProfileInfoProps {
-  name: string;
+  name?: string;
   description?: string;
+  imageSource?: string;
+  followers?: number;
+  following?: number;
+  posts?: number;
 }
 
-const ProfileInfo: React.FC<ProfileInfoProps> = ({ name, description }) => {
+const ProfileInfo: React.FC<ProfileInfoProps> = ({ name, description, imageSource, followers, following, posts}) => {
   return (
     <View style={styles.container}>
       <View style={styles.additionalInformation}>
@@ -17,7 +21,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ name, description }) => {
           <Text style={styles.title}>Bonjour, je m'apelle {name}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
-        <StatsCard followers={0} following={0} posts={0} />
+        <StatsCard followers={followers ? followers : 0} following={following ? following : 0} posts={posts ? posts : 0} />
         <View style={styles.buttonContainer}>
           <View style={styles.buttonChildren}>
             <CustomButton
@@ -34,7 +38,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ name, description }) => {
         </View>
       </View>
       <View style={styles.imageContainer}>
-        <Avatar imageSource="https://picsum.photos/200" size={270} />
+        <Avatar imageSource={imageSource ? imageSource : "https://picsum.photos/200"} size={270} />
       </View>
     </View>
   );
