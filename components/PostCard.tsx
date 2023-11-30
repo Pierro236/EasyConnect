@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
   post: {
     height: 350,
+    width: "100%",
   },
   postContent: {
     height: "auto",

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useEffect, useState } from 'react';
 
 interface StatsCardProps {
   followers: number;
@@ -8,9 +9,28 @@ interface StatsCardProps {
 }
 
 const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const { width } = Dimensions.get("window");
+      setIsSmallScreen(width < 600);
+    };
+
+    checkScreenSize();
+
+    const resizeListener = Dimensions.addEventListener(
+      "change",
+      checkScreenSize
+    );
+
+    return () => {
+      resizeListener.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.statsContainer}>
+      <View style={isSmallScreen ? styles.statsContainerSmall : styles.statsContainer}>
         <View style={styles.statItem}>
           <Text style={styles.statValue}>{followers}</Text>
           <Text style={styles.statLabel}>Followers</Text>
@@ -52,6 +72,12 @@ const styles = StyleSheet.create({
     fontSize: 33,
     color: '#366EFF',
     fontWeight: '700',
+  },
+  statsContainerSmall: {
+    flexDirection: 'row',
+    padding: 15,
+    margin: 10,
+    width: '120%',
   },
 });
 
