@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 0.95,
     paddingVertical: 10,
     paddingHorizontal: 10,
+    paddingBottom: 150,
   },
   post: {
     marginRight: 10,

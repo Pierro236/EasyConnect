@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
+import { Link } from 'expo-router';
 
 interface StatsCardProps {
   followers: number;
@@ -36,7 +37,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) =>
           <Text style={styles.statLabel}>Followers</Text>
         </View>
         <View style={styles.statItem}>
-          <Text style={styles.statValue}>{following}</Text>
+          <Link href="/followersList"> <Text style={styles.statValue}>{following}</Text> </Link>
           <Text style={styles.statLabel}>Following</Text>
         </View>
         <View style={styles.statItem}>
