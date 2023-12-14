@@ -33,7 +33,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) =>
     <View style={styles.container}>
       <View style={isSmallScreen ? styles.statsContainerSmall : styles.statsContainer}>
         <View style={styles.statItem}>
-          <Text style={styles.statValue}>{followers}</Text>
+        <Link href="/followersList"> <Text style={styles.statValue}>{followers}</Text> </Link>
           <Text style={styles.statLabel}>Followers</Text>
         </View>
         <View style={styles.statItem}>

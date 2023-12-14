@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { IUser } from '../types';
-import FollowerCard from '../components/followerCard';
+import FollowerCard from '../components/FollowerCard';
 
 const supabase = createClient('https://dkabcacfgilbdqnwnbzj.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU');
 
@@ -67,7 +67,7 @@ useEffect(() => {
 
   return (
     <View style={styles.container}>
-    <ScrollView>
+    <ScrollView style={styles.followersTable}>
         {followers.map((follower) => (
             <View key={follower.id}>
                 <FollowerCard 
@@ -86,6 +86,11 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#EAF2FF',
   },
+    followersTable: {
+        flex: 1,
+        paddingHorizontal: 60,
+        paddingVertical: 30,
+    },
 })

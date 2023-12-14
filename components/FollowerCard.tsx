@@ -1,8 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react'
 import { View, Text } from 'react-native';
-import ProfileIcon from './ProfileIcon';
 import { StyleSheet } from 'react-native';
+import Avatar from './Avatar';
 
 type Props = {
     name: string;
@@ -14,9 +14,10 @@ type Props = {
 export default function FollowerCard({imageSource, certified, description, name}: Props) {
   return (
     <View style={styles.container}>
-        <ProfileIcon src={imageSource} />
+                <Avatar imageSource={imageSource ? imageSource : "https://picsum.photos/200"} size={100} />
+                <View style={styles.header}>
                 <Text style={{ fontSize: 18, fontWeight: "700" }}>
-                    {name + "jmsdkmas"}
+                    {name}
                 </Text>
                 {certified && (
                     <MaterialCommunityIcons
@@ -26,6 +27,10 @@ export default function FollowerCard({imageSource, certified, description, name}
                     style={{ marginLeft: -2 }}
                     />
                 )}
+                <Text style={{ fontSize: 18, fontWeight: "400" }}>
+                {description}
+            </Text>
+            </View>
     </View>
   )
 }
@@ -33,8 +38,18 @@ export default function FollowerCard({imageSource, certified, description, name}
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        alignItems: "center",
-        gap: 7,
-        backgroundColor: "red",
+            alignItems: "center",
+            gap: 7,
+        backgroundColor: "white",
+        padding: 15,
+        marginVertical: 10,
+        borderRadius: 20,
       },
+        header: {
+            marginLeft: 10,
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            gap: 5,
+        },
 })
