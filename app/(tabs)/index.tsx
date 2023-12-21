@@ -1,15 +1,14 @@
-
 import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
 const testimage = require("../../assets/images/test.jpg");
 import ProfileIcon from "../../components/ProfileIcon";
 import Post from "../../components/PostCard";
 import { fakePostData } from "../../data/post";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabOneScreen() {
   const posts = fakePostData;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.addPostContainer}>
         <ProfileIcon src={testimage} />
         <Text style={styles.title}>Dis quelque chose...</Text>
@@ -22,7 +21,7 @@ export default function TabOneScreen() {
           <Post key={post.id} post={post} />
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
