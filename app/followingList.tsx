@@ -13,44 +13,44 @@ type Props = {
     followersList?: boolean;
 }
 
-export default function followerList({followersList}: Props) {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+export default function followingList({followersList}: Props) {
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const { width } = Dimensions.get("window");
-      setIsSmallScreen(width < 600);
-    };
-
-    checkScreenSize();
-
-    const resizeListener = Dimensions.addEventListener(
-      "change",
-      checkScreenSize
-    );
-
-    return () => {
-      resizeListener.remove();
-    };
-  }, []);
+    useEffect(() => {
+      const checkScreenSize = () => {
+        const { width } = Dimensions.get("window");
+        setIsSmallScreen(width < 600);
+      };
+  
+      checkScreenSize();
+  
+      const resizeListener = Dimensions.addEventListener(
+        "change",
+        checkScreenSize
+      );
+  
+      return () => {
+        resizeListener.remove();
+      };
+    }, []);
 
 const [followers, setFollowers] = useState<Array<IUser>>([]);
 const userId = 1;
-
+followersList = true;
 useEffect(() => {
   const fetchData = async () => {
     try {
       const { data: followersData, error } = await supabase
         .from('follows')
-        .select(followersList ? 'following_user_id' : 'followed_user_id')
-        .eq(followersList ? 'followed_user_id' : 'following_user_id', userId);
+        .select('following_user_id')
+        .eq('followed_user_id', userId);
 
       if (error) {
         throw error;
       }
 
       if (followersData) {
-        const followerIds = followersData.map((follower: any) => follower.followed_user_id);
+        const followerIds = followersData.map((follower: any) => follower.following_user_id);
 
         if (followerIds.length > 0) {
           const { data: usersData, error: usersError } = await supabase

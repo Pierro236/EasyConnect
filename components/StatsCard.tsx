@@ -11,15 +11,7 @@ interface StatsCardProps {
 
 const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const navigation = useNavigation();
 
-  // const navigateToFollowersList = (listType:string) => {
-  //   navigation.navigate('followersList', {
-  //     listType,
-  //     userId,
-  //   });
-    
-  // };
   useEffect(() => {
     const checkScreenSize = () => {
       const { width } = Dimensions.get("window");
@@ -42,7 +34,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) =>
     <View style={styles.container}>
       <View style={isSmallScreen ? styles.statsContainerSmall : styles.statsContainer}>
         <View style={styles.statItem}>
-        <Link href="/followersList"> <Text style={styles.statValue}>{followers}</Text> </Link>
+        <Link href="/followingList"> <Text style={styles.statValue}>{followers}</Text> </Link>
           <Text style={styles.statLabel}>Followers</Text>
         </View>
         <View style={styles.statItem}>

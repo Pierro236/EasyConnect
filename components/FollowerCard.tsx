@@ -1,8 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Avatar from './Avatar';
+import { useEffect, useState } from 'react';
 
 type Props = {
     name: string;
@@ -12,9 +13,30 @@ type Props = {
 }
 
 export default function FollowerCard({imageSource, certified, description, name}: Props) {
+
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+      const checkScreenSize = () => {
+        const { width } = Dimensions.get("window");
+        setIsSmallScreen(width < 600);
+      };
+  
+      checkScreenSize();
+  
+      const resizeListener = Dimensions.addEventListener(
+        "change",
+        checkScreenSize
+      );
+  
+      return () => {
+        resizeListener.remove();
+      };
+    }, []);
+    
   return (
     <View style={styles.container}>
-                <Avatar imageSource={imageSource ? imageSource : "https://picsum.photos/200"} size={100} />
+                <Avatar imageSource={imageSource ? imageSource : "https://picsum.photos/200"} size={isSmallScreen ? 70:100} />
                 <View style={styles.header}>
                 <Text style={{ fontSize: 18, fontWeight: "700" }}>
                     {name}
@@ -27,9 +49,13 @@ export default function FollowerCard({imageSource, certified, description, name}
                     style={{ marginLeft: -2 }}
                     />
                 )}
-                <Text style={{ fontSize: 18, fontWeight: "400" }}>
-                {description}
-            </Text>
+                {
+                    !isSmallScreen && (
+                        <Text style={{ fontSize: 18, fontWeight: "400" }}>
+                        {description}
+                        </Text>
+                    )
+                }
             </View>
     </View>
   )
@@ -44,6 +70,7 @@ const styles = StyleSheet.create({
         padding: 15,
         marginVertical: 10,
         borderRadius: 20,
+        overflow: 'hidden'
       },
         header: {
             marginLeft: 10,
