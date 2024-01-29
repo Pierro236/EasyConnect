@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 const ProfileIcon = ({ src }: any) => (
   <View style={styles.container}>
-    <Image source={src} style={styles.image} />
+    <Image source={{ uri: src }} style={styles.image} />
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     borderRadius: 50,
   },
   image: {
