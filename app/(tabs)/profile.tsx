@@ -1,15 +1,19 @@
-import { StyleSheet } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import ProfileInfo from '../../components/ProfileInfo';
-import RecentPosts from '../../components/RecentPosts';
-import { View } from '../../components/Themed';
-import { createClient } from '@supabase/supabase-js';
-import 'react-native-url-polyfill/auto';
-import { ScrollView } from 'react-native-gesture-handler';
-import { IPost } from '../../types/index';
-import { IUser } from '../../types/index';
+import { StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import EditScreenInfo from "../../components/EditScreenInfo";
+import ProfileInfo from "../../components/ProfileInfo";
+import RecentPosts from "../../components/RecentPosts";
+import { Text, View } from "../../components/Themed";
+import { createClient } from "@supabase/supabase-js";
+import "react-native-url-polyfill/auto";
+import { ScrollView } from "react-native-gesture-handler";
+import { IPost } from "../../types/index";
+import { IUser } from "../../types/index";
 
-const supabase = createClient('https://dkabcacfgilbdqnwnbzj.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU');
+const supabase = createClient(
+  "https://dkabcacfgilbdqnwnbzj.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU"
+);
 
 export default function Profile() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -108,7 +112,7 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
+  container: {
+    flex: 1,
+  },
+});
