@@ -22,8 +22,8 @@ useEffect(() => {
     try {
       const { data: followersData, error } = await supabase
         .from('follows')
-        .select('followed_user_id')
-        .eq('following_user_id', userId);
+        .select(followersList ? 'following_user_id' : 'followed_user_id')
+        .eq(followersList ? 'followed_user_id' : 'following_user_id', userId);
 
       if (error) {
         throw error;

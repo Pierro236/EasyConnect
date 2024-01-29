@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
-import { Link } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 
 interface StatsCardProps {
   followers: number;
@@ -11,6 +11,15 @@ interface StatsCardProps {
 
 const StatsCard: React.FC<StatsCardProps> = ({ followers, following, posts }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const navigation = useNavigation();
+
+  // const navigateToFollowersList = (listType:string) => {
+  //   navigation.navigate('followersList', {
+  //     listType,
+  //     userId,
+  //   });
+    
+  // };
   useEffect(() => {
     const checkScreenSize = () => {
       const { width } = Dimensions.get("window");

@@ -56,7 +56,7 @@ function RootLayoutNav() {
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
-        <Stack.Screen name="folllowersList" options={{ headerShown: true, title: "Mes abonnés" }} />
+        <Stack.Screen name="folllowersList" options={{ headerShown: true, title: "Mes abonnés"}} />
       </Stack>
     </ThemeProvider>
   );
