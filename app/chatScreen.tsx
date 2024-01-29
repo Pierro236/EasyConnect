@@ -19,6 +19,9 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU"
 );
 
+
+const MESSAGES_PAGE_SIZE = 10; // 一次加载的消息数量
+
 const ChatScreen = ({
   userId,
   onBack,
@@ -35,6 +38,7 @@ const ChatScreen = ({
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
+  const [messagesOffset, setMessagesOffset] = useState(0); // 新增：消息偏移量
 
   const fetchMessages = async () => {
     const loggedInUserId = 1;
@@ -43,14 +47,17 @@ const ChatScreen = ({
       .select("*")
       .or(`sender_id.eq.${loggedInUserId},receiver_id.eq.${loggedInUserId}`)
       .or(`sender_id.eq.${userId},receiver_id.eq.${userId}`)
-      .order("created_at", { ascending: true });
+      .order("created_at", { ascending: false })
+      .range(messagesOffset, messagesOffset + MESSAGES_PAGE_SIZE - 1);
 
     if (error) {
       console.error(error);
       return;
     }
-    setMessages(messagesData ?? []);
+    // 以逆序将新消息添加到列表前面
+    setMessages(messagesData ? [...messagesData.reverse(), ...messages] : []);
   };
+
 
   useEffect(() => {
     fetchMessages();
@@ -69,7 +76,7 @@ const ChatScreen = ({
     };
 
     fetchCurrentUser();
-  }, [userId]);
+  }, [userId, messagesOffset]); // 添加 messagesOffset 作为依赖项
 
   const sendMessage = async () => {
     const loggedInUserId = 1;
@@ -258,7 +265,11 @@ const ChatScreen = ({
             )}
           </View>
         )}
+        onEndReached={() => setMessagesOffset(messagesOffset + MESSAGES_PAGE_SIZE)}
+        onEndReachedThreshold={0.5}
+        inverted
       />
+      
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
