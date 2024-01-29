@@ -23,6 +23,8 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU"
 );
 
+const MESSAGES_PAGE_SIZE = 10; // 一次加载的消息数量
+
 const ChatScreen = memo(
   ({ userId, onBack }: { userId: number; onBack: () => void }) => {
     const [currentUser, setCurrentUser] = useState<any>({});
