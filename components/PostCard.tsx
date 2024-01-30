@@ -70,10 +70,12 @@ const Post = ({ post }: any) => {
           {post.caption}
         </Text>
       </View>
-      {post.image && <ImageBackground
-        source={post.image}
-        style={styles.post}
-      ></ImageBackground>}
+      {post.image && (
+        <ImageBackground
+          source={{ uri: post.image }}
+          style={styles.post}
+        ></ImageBackground>
+      )}
       <View style={styles.postFooter}>
         <Pressable style={styles.postFooterItem} onPress={handleLiked}>
           <FontAwesome
