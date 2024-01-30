@@ -1,35 +1,79 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FontAwesome } from "@expo/vector-icons"; // Import FontAwesome from Expo Icons
+import { FontAwesome } from "@expo/vector-icons";
+import { createClient } from "@supabase/supabase-js";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
-import { Link } from "expo-router";
-const logo = require("../assets/images/easy.png");
+import { router } from 'expo-router';
+
+
+const supabase = createClient(
+  "https://dkabcacfgilbdqnwnbzj.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrYWJjYWNmZ2lsYmRxbnduYnpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgyNDQ4NDQsImV4cCI6MjAxMzgyMDg0NH0.qE16p_x2DQXowW26cUFeD-SFLsVqXhz0_0hsxx4QYCU"
+);
 
 export default function LoginScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState<string>(""); 
+  const [user, setUser] = useState(null);
+
+  const handleLogin = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("password")
+        .eq("username", email)
+        .single();
+        
+      if (data) {
+        if (data.password === password) {
+          console.log("Login successful: Vous êtes connecté");
+          router.replace('/(tabs)');
+        } else {
+          console.warn("Incorrect password: Mot de passe incorrect");
+        }
+      } else {
+        console.warn("User not found: Utilisateur non trouvé");
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
+  };
+  
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
+      {/* ...other JSX code */}
       <View style={styles.inputContainer}>
-        <CustomInput placeholder="Email" />
-        <CustomInput placeholder="Mot de passe" />
+        <CustomInput
+          placeholder="Email"
+          value={email}
+          onChangeText={(text:string) => setEmail(text)}
+        />
+        <CustomInput
+          placeholder="Mot de passe"
+          secureTextEntry
+          value={password}
+          onChangeText={(text:string) => setPassword(text)}
+        />
         <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Link href="/(tabs)" asChild>
-          <CustomButton text="Se connecter" />
-        </Link>
+        <Pressable>
+          <CustomButton onPress={handleLogin} text="Se connecter" />
+        </Pressable>
         <Text style={styles.registerText}>Pas de compte? Inscrivez-vous</Text>
       </View>
-      <View style={styles.authContainer}>
-        {renderAuthOption("google", "red", "Connexion avec Google")}
-        {renderAuthOption(
-          "phone",
-          "blue",
-          "Connexion avec votre numéro de téléphone"
-        )}
-      </View>
+      {/* ...other JSX code */}
+    <View style={styles.authContainer}>
+    {renderAuthOption("google", "red", "Connexion avec Google")}
+    {renderAuthOption(
+      "phone",
+      "blue",
+      "Connexion avec votre numéro de téléphone"
+    )}
+     </View>
     </SafeAreaView>
   );
 }
