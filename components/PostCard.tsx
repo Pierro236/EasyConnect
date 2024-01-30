@@ -45,7 +45,7 @@ const Post = ({ post }: any) => {
     <View style={styles.container}>
       <View style={styles.postHeader}>
         <Pressable style={styles.postHeaderUser}>
-          <ProfileIcon src={post.user.image} />
+          <ProfileIcon src={post.user.profile_picture} />
           <Text style={{ fontSize: 18, fontWeight: "700" }}>
             {post.user.username}
           </Text>
