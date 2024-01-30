@@ -1,6 +1,4 @@
 import { Button, Image, ScrollView, StyleSheet } from "react-native";
-
-import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 const testimage = require("../../assets/images/easy.png");
 
@@ -94,6 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    color: "#000000",
   },
   image: {
     height: "30%",
@@ -107,10 +106,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
     alignSelf: "center",
+    backgroundColor: "#EAF2FF",
   },
   sectionTitle: {
     fontSize: 18,
     marginBottom: 10,
+    color: "#000000",
   },
 });
 

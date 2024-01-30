@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { createClient } from "@supabase/supabase-js";
 import * as ImagePicker from "expo-image-picker";
+import CustomButton from "../../components/CustomButton";
+
 
 const SUPABASE_URL = "https://dkabcacfgilbdqnwnbzj.supabase.co";
 const SUPABASE_PUBLIC_KEY =
@@ -64,7 +66,7 @@ const CreatePostScreen = () => {
     }
 
     // 返回图片的URL
-    return `${SUPABASE_URL}/storage/v1/object/public/posts-images/posts/${imageName}`;
+    return `${SUPABASE_URL}/storage/v1/object/public/posts-images/${imageName}`;
   };
 
   const handlePostSubmit = async () => {
@@ -104,14 +106,14 @@ const CreatePostScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Title</Text>
+      <Text style={{fontSize: 28, fontWeight: "700"}}>Title</Text>
       <TextInput
         style={styles.input}
         value={title}
         onChangeText={setTitle}
         placeholder="Enter the title of the post"
       />
-      <Text>Caption</Text>
+      <Text style={{fontSize: 28, fontWeight: "700"}}>Caption</Text>
       <TextInput
         style={styles.input}
         value={caption}
@@ -119,11 +121,13 @@ const CreatePostScreen = () => {
         placeholder="What's on your mind?"
         multiline
       />
-      <Button title="Pick an image" onPress={pickImage} />
-      {imageUri && (
-        <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
-      )}
-      <Button title="Submit Post" onPress={handlePostSubmit} />
+  <CustomButton buttonStyle={{marginTop:15}} onPress={pickImage} text="Selectioner une image" />
+  {imageUri && (
+    <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+  )}
+  <CustomButton buttonStyle={{marginTop:10}} onPress={handlePostSubmit} text="Publier" />
+
+      
     </View>
   );
 };
@@ -134,14 +138,26 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: '#EAF2FF',
   },
   input: {
     width: "100%",
     marginVertical: 10,
-    padding: 8,
+    padding: 15,
     borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
+    borderColor: "#ccc",
+    backgroundColor: "white",
+    borderRadius: 12,
+    fontSize: 20,
+  },
+  inputStyle: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 10,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    height: 60,
   },
   image: {
     width: 200,
