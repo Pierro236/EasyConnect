@@ -39,7 +39,6 @@ const ChatScreen = memo(
       null
     );
     const [iconsData, setIconsData] = useState<Array<any>>([]);
-    const [messagesOffset, setMessagesOffset] = useState(0); // 新增：消息偏移量
 
     const fetchMessages = async () => {
       const loggedInUserId = 1;
@@ -48,16 +47,13 @@ const ChatScreen = memo(
         .select("*")
         .or(`sender_id.eq.${loggedInUserId},receiver_id.eq.${loggedInUserId}`)
         .or(`sender_id.eq.${userId},receiver_id.eq.${userId}`)
-        .order("created_at", { ascending: false })
-        .range(messagesOffset, messagesOffset + MESSAGES_PAGE_SIZE - 1);
-
+        .order("created_at", { ascending: true });
 
       if (error) {
         console.error(error);
         return;
       }
-      // 以逆序将新消息添加到列表前面
-      setMessages(messagesData ? [...messagesData.reverse(), ...messages] : []);
+      setMessages(messagesData ?? []);
     };
 
     const fetchCurrentUser = async () => {
@@ -130,13 +126,12 @@ const ChatScreen = memo(
     };
 
     useEffect(() => {
-      fetchMessages();
       if (userId) {
         fetchMessages();
         fetchCurrentUser();
         fetchIcons();
       }
-    }, [userId, messagesOffset]);
+    }, [userId]);
 
     const sendMessage = async () => {
       const loggedInUserId = 1;
@@ -305,9 +300,6 @@ const ChatScreen = memo(
               ) : null}
             </View>
           )}
-          onEndReached={() => setMessagesOffset(messagesOffset + MESSAGES_PAGE_SIZE)} // 下拉到底部时增加消息偏移量
-          onEndReachedThreshold={0.5} // 当距离底部还有一半时开始加载
-          inverted // 逆序排列消息
         />
 
         <KeyboardAvoidingView enabled={true} style={styles.inputContainer}>
