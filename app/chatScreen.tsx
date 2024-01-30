@@ -1,5 +1,5 @@
 // ChatScreen.tsx
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 import {
   View,
   Text,
@@ -31,6 +31,7 @@ const ChatScreen = memo(
     const [messages, setMessages] = useState<Array<any>>([]);
     const [newMessage, setNewMessage] = useState("");
     const [loadedIcons, setLoadedIcons] = useState<Set<number>>(new Set());
+    const flatListRef = useRef<FlatList<any>>(null);
     const [isSearchModalVisible, setSearchModalVisible] = useState(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(
       null
@@ -266,7 +267,11 @@ const ChatScreen = memo(
 
         <FlatList
           data={messages}
+          ref={flatListRef}
           extraData={messages}
+          onContentSizeChange={() => {
+            flatListRef.current?.scrollToEnd({ animated: true });
+          }}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View
