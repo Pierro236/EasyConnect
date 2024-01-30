@@ -92,6 +92,7 @@ const Chat = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EAF2FF',
   },
   userContainer: {
     flexDirection: 'row',
